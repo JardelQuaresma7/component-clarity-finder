@@ -32,6 +32,12 @@ export default function Layout({ children, title = 'Use Deluxxe - Moda Feminina'
   useEffect(() => {
     // Atualizar o título da página quando o componente montar ou o título mudar
     document.title = title;
+    
+    // Você pode adicionar as meta tags dinamicamente se necessário
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Loja online de roupas femininas com peças exclusivas e tendências da moda');
+    }
   }, [title]);
 
   const closeNewsletter = () => {
