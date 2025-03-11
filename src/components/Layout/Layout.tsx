@@ -66,7 +66,7 @@ export default function Layout({ children, title = 'Use Deluxxe - Moda Feminina'
         <Search className="h-6 w-6 text-pink-700" />
       </div>
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {children}
       </main>
 
