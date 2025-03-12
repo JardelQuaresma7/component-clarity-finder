@@ -1,5 +1,5 @@
 
-import { X } from 'lucide-react';
+import { X, ChevronDown, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface MobileMenuProps {
