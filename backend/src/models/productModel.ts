@@ -22,7 +22,6 @@ const productSchema = new mongoose.Schema(
     slug: {
       type: String,
       required: true,
-      unique: true,
     },
     price: {
       type: Number,
@@ -73,7 +72,7 @@ const productSchema = new mongoose.Schema(
         ref: 'Review',
       },
     ],
-    isNew: {
+    isNewArrival: {
       type: Boolean,
       default: false,
     },
