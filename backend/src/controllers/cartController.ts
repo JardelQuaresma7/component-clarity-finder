@@ -171,10 +171,11 @@ export const removeCartItem = async (req: Request, res: Response) => {
       });
     }
 
-    // Remover item do carrinho
-    cart.items = cart.items.filter(
+    // Remover item do carrinho - Correção para o erro de tipo
+    const itemsArray = cart.items.filter(
       (item) => item._id.toString() !== cartItemId
     );
+    cart.items = itemsArray as any;
 
     // Salvar carrinho
     await cart.save();
@@ -204,8 +205,8 @@ export const clearCart = async (req: Request, res: Response) => {
       });
     }
 
-    // Limpar itens
-    cart.items = [];
+    // Limpar itens - Correção
+    cart.items.splice(0, cart.items.length);
 
     // Salvar carrinho
     await cart.save();

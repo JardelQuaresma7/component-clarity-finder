@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   createOrder,
   getUserOrders,
@@ -8,15 +8,17 @@ import {
 } from '../controllers/orderController';
 import { protect, admin } from '../middleware/authMiddleware';
 
-const router = express.Router();
+const router = Router();
 
-// Todas as rotas são protegidas (requerem login)
-router.use(protect);
+// Todas as rotas são protegidas (requerem login) - corrigidas
+router.use(protect as any);
 
-router.post('/', createOrder);
-router.get('/', getUserOrders);
-router.get('/:id', getOrderById);
-router.put('/:id/pay', updateOrderToPaid);
-router.put('/:id/deliver', admin, updateOrderToDelivered);
+router.route('/')
+  .post(createOrder as any)
+  .get(getUserOrders as any);
+
+router.route('/:id').get(getOrderById as any);
+router.route('/:id/pay').put(updateOrderToPaid as any);
+router.route('/:id/deliver').put(admin as any, updateOrderToDelivered as any);
 
 export default router;

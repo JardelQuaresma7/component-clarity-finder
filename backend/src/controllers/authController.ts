@@ -3,10 +3,13 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
 
 // Gerar token JWT
-const generateToken = (id: string) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET || 'jwt_secret', {
-    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
-  });
+const generateToken = (id: string | any): string => {
+  // Correção para o erro de JWT
+  return jwt.sign(
+    { id }, 
+    process.env.JWT_SECRET || 'jwt_secret', 
+    { expiresIn: process.env.JWT_EXPIRES_IN ? parseInt(process.env.JWT_EXPIRES_IN) : '7d' }
+  );
 };
 
 // Registrar usuário
@@ -39,7 +42,8 @@ export const registerUser = async (req: Request, res: Response) => {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token: generateToken(user._id),
+          // Correção: convertendo _id para string
+          token: generateToken(user._id.toString()),
         },
       });
     } else {
@@ -72,7 +76,8 @@ export const loginUser = async (req: Request, res: Response) => {
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token: generateToken(user._id),
+          // Correção: convertendo _id para string
+          token: generateToken(user._id.toString()),
         },
       });
     } else {
@@ -140,7 +145,8 @@ export const updateUserProfile = async (req: Request, res: Response) => {
           name: updatedUser.name,
           email: updatedUser.email,
           isAdmin: updatedUser.isAdmin,
-          token: generateToken(updatedUser._id),
+          // Correção: convertendo _id para string
+          token: generateToken(updatedUser._id.toString()),
         },
       });
     } else {

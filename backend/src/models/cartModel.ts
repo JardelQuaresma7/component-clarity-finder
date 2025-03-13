@@ -1,8 +1,26 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
-const cartItemSchema = new mongoose.Schema({
+// Interface para item de carrinho
+interface ICartItem {
+  product: Types.ObjectId;
+  name: string;
+  size?: string;
+  color?: string;
+  image: string;
+  price: number;
+  quantity: number;
+  _id?: Types.ObjectId;
+}
+
+// Interface para documento Cart
+export interface ICart extends Document {
+  user: Types.ObjectId;
+  items: mongoose.Types.DocumentArray<ICartItem & Document>;
+}
+
+const cartItemSchema = new Schema({
   product: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Product',
     required: true,
   },
@@ -10,12 +28,8 @@ const cartItemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  size: {
-    type: String,
-  },
-  color: {
-    type: String,
-  },
+  size: String,
+  color: String,
   image: {
     type: String,
     required: true,
@@ -31,10 +45,10 @@ const cartItemSchema = new mongoose.Schema({
   },
 });
 
-const cartSchema = new mongoose.Schema(
+const cartSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
@@ -45,6 +59,6 @@ const cartSchema = new mongoose.Schema(
   }
 );
 
-const Cart = mongoose.model('Cart', cartSchema);
+const Cart = mongoose.model<ICart>('Cart', cartSchema);
 
 export default Cart;

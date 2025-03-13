@@ -24,7 +24,7 @@ const importData = async () => {
     });
 
     // Adicionar referência do admin aos produtos
-    const productsWithUser = products.map(product => {
+    const productsWithUser = products.map((product: any) => {
       return { ...product, user: adminUser._id };
     });
 

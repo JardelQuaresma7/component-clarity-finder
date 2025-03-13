@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   getProducts,
   getProductBySlug,
@@ -10,17 +10,20 @@ import {
 } from '../controllers/productController';
 import { protect, admin } from '../middleware/authMiddleware';
 
-const router = express.Router();
+const router = Router();
 
-// Rotas públicas
-router.get('/', getProducts);
-router.get('/featured', getFeaturedProducts);
-router.get('/new-arrivals', getNewArrivals);
-router.get('/:slug', getProductBySlug);
+// Rotas públicas - corrigidas
+router.route('/').get(getProducts as any);
+router.route('/featured').get(getFeaturedProducts as any);
+router.route('/new-arrivals').get(getNewArrivals as any);
+router.route('/:slug').get(getProductBySlug as any);
 
-// Rotas protegidas (admin)
-router.post('/', protect, admin, createProduct);
-router.put('/:id', protect, admin, updateProduct);
-router.delete('/:id', protect, admin, deleteProduct);
+// Rotas protegidas (admin) - corrigidas
+router.route('/')
+  .post(protect as any, admin as any, createProduct as any);
+
+router.route('/:id')
+  .put(protect as any, admin as any, updateProduct as any)
+  .delete(protect as any, admin as any, deleteProduct as any);
 
 export default router;

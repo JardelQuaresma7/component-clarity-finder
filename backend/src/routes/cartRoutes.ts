@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   getCart,
   addToCart,
@@ -8,15 +8,16 @@ import {
 } from '../controllers/cartController';
 import { protect } from '../middleware/authMiddleware';
 
-const router = express.Router();
+const router = Router();
 
-// Todas as rotas são protegidas (requerem login)
-router.use(protect);
+// Todas as rotas são protegidas (requerem login) - corrigidas
+router.use(protect as any);
 
-router.get('/', getCart);
-router.post('/add', addToCart);
-router.put('/item/:id', updateCartItem);
-router.delete('/item/:id', removeCartItem);
-router.delete('/', clearCart);
+router.route('/').get(getCart as any);
+router.route('/add').post(addToCart as any);
+router.route('/item/:id')
+  .put(updateCartItem as any)
+  .delete(removeCartItem as any);
+router.route('/').delete(clearCart as any);
 
 export default router;

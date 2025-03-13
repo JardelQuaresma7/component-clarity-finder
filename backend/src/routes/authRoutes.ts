@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   registerUser,
   loginUser,
@@ -7,14 +7,15 @@ import {
 } from '../controllers/authController';
 import { protect } from '../middleware/authMiddleware';
 
-const router = express.Router();
+const router = Router();
 
-// Rotas públicas
-router.post('/register', registerUser);
-router.post('/login', loginUser);
+// Rotas públicas - corrigidas
+router.route('/register').post(registerUser as any);
+router.route('/login').post(loginUser as any);
 
-// Rotas protegidas
-router.get('/profile', protect, getUserProfile);
-router.put('/profile', protect, updateUserProfile);
+// Rotas protegidas - corrigidas
+router.route('/profile')
+  .get(protect as any, getUserProfile as any)
+  .put(protect as any, updateUserProfile as any);
 
 export default router;

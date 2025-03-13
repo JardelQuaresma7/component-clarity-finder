@@ -54,8 +54,8 @@ export const createOrder = async (req: Request, res: Response) => {
       }
     }
 
-    // Limpar carrinho
-    cart.items = [];
+    // Limpar carrinho - Correção
+    cart.items.splice(0, cart.items.length);
     await cart.save();
 
     res.status(201).json({
