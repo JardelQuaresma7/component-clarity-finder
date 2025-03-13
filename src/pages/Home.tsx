@@ -1,5 +1,6 @@
 
 import Layout from "@/components/Layout/Layout";
+import { CategorySection, FeaturedProducts } from "@/components/Products";
 
 const Home = () => {
   return (
@@ -20,39 +21,10 @@ const Home = () => {
         </div>
         
         {/* Categorias em destaque */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6 text-center">Categorias em Destaque</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {['Vestidos', 'Blusas', 'Calças'].map((category) => (
-              <div key={category} className="bg-gray-100 rounded-lg p-8 text-center hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-semibold mb-2">{category}</h3>
-                <a href={`/categoria/${category.toLowerCase()}`} className="text-pink-600 hover:text-pink-700 underline">
-                  Ver produtos
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
+        <CategorySection />
         
-        {/* Destaques */}
-        <div>
-          <h2 className="text-2xl font-bold mb-6 text-center">Produtos em Destaque</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-64 bg-gray-200"></div>
-                <div className="p-4">
-                  <h3 className="font-medium mb-2">Produto {item}</h3>
-                  <p className="text-gray-600 mb-2">Descrição do produto</p>
-                  <p className="font-bold text-lg mb-3">R$ 99,90</p>
-                  <button className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded transition-colors">
-                    Adicionar ao carrinho
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Produtos em Destaque */}
+        <FeaturedProducts />
       </div>
     </Layout>
   );
