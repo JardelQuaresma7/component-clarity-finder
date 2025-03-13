@@ -1,5 +1,5 @@
 
-import { Toaster } from "@/components/ui/toast";
+import { Toaster } from "@/components/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
