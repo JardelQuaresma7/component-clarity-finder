@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { X, Check, Mail } from 'lucide-react';
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 interface NewsletterPopupProps {
   onClose: () => void;
@@ -11,6 +11,7 @@ const NewsletterPopup = ({ onClose }: NewsletterPopupProps) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
