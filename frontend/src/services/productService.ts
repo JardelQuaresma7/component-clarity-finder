@@ -7,7 +7,7 @@ export const getProducts = async (params = {}) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
-    return { data: [], success: false, error: 'Failed to fetch products' };
+    throw error;
   }
 };
 
@@ -17,7 +17,7 @@ export const getProductBySlug = async (slug: string) => {
     return response.data;
   } catch (error) {
     console.error(`Error fetching product ${slug}:`, error);
-    return { data: null, success: false, error: 'Failed to fetch product' };
+    throw error;
   }
 };
 
@@ -27,7 +27,7 @@ export const getFeaturedProducts = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching featured products:', error);
-    return { data: [], success: false, error: 'Failed to fetch featured products' };
+    throw error;
   }
 };
 
@@ -37,11 +37,11 @@ export const getNewArrivals = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching new arrivals:', error);
-    return { data: [], success: false, error: 'Failed to fetch new arrivals' };
+    throw error;
   }
 };
 
-// New wishlist functions
+// Wishlist functions
 export const getWishlistItems = async () => {
   try {
     // This would typically call an API endpoint that returns the user's wishlist
@@ -77,7 +77,7 @@ export const getWishlistItems = async () => {
     return { data: mockItems, success: true };
   } catch (error) {
     console.error('Error fetching wishlist items:', error);
-    return { data: [], success: false, error: 'Failed to fetch wishlist items' };
+    throw error;
   }
 };
 
@@ -88,7 +88,7 @@ export const addToWishlist = async (productId: string) => {
     return { success: true, message: 'Product added to wishlist' };
   } catch (error) {
     console.error('Error adding to wishlist:', error);
-    return { success: false, error: 'Failed to add product to wishlist' };
+    throw error;
   }
 };
 
@@ -99,6 +99,6 @@ export const removeFromWishlist = async (productId: string) => {
     return { success: true, message: 'Product removed from wishlist' };
   } catch (error) {
     console.error('Error removing from wishlist:', error);
-    return { success: false, error: 'Failed to remove product from wishlist' };
+    throw error;
   }
 };
