@@ -22,7 +22,7 @@ export const getProducts = async (req: Request, res: Response) => {
       ? { 'category.slug': req.query.category }
       : {};
       
-    const isNewFilter = req.query.isNew === 'true' ? { isNew: true } : {};
+    const isNewFilter = req.query.isNewArrival === 'true' ? { isNewArrival: true } : {};
     
     // Ordenação
     const sort = req.query.sort || '-createdAt';
@@ -191,7 +191,7 @@ export const getNewArrivals = async (req: Request, res: Response) => {
   try {
     const limit = Number(req.query.limit) || 4;
     
-    const products = await Product.find({ isNew: true })
+    const products = await Product.find({ isNewArrival: true })
       .sort('-createdAt')
       .limit(limit);
 
