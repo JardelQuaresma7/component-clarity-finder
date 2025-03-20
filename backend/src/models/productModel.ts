@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 
 const colorSchema = new mongoose.Schema({

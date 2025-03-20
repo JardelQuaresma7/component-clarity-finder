@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import Product from '../models/productModel';
 import { createSlug } from '../utils/helpers';
