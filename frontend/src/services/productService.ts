@@ -1,4 +1,3 @@
-
 import api from './api';
 
 export const getProducts = async (params = {}) => {
@@ -41,12 +40,20 @@ export const getNewArrivals = async () => {
   }
 };
 
-// Wishlist functions
+export const getCollectionProducts = async (collectionId: string) => {
+  try {
+    const response = await api.get('/api/products/featured', { 
+      params: { collection: collectionId }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching collection ${collectionId}:`, error);
+    throw error;
+  }
+};
+
 export const getWishlistItems = async () => {
   try {
-    // This would typically call an API endpoint that returns the user's wishlist
-    // For now, we'll return mock data until the backend is ready
-    // In a real application, this would be: const response = await api.get('/api/wishlist');
     const mockItems = [
       {
         id: '1',
@@ -83,7 +90,6 @@ export const getWishlistItems = async () => {
 
 export const addToWishlist = async (productId: string) => {
   try {
-    // In a real app: const response = await api.post('/api/wishlist', { productId });
     console.log('Product added to wishlist:', productId);
     return { success: true, message: 'Product added to wishlist' };
   } catch (error) {
@@ -94,7 +100,6 @@ export const addToWishlist = async (productId: string) => {
 
 export const removeFromWishlist = async (productId: string) => {
   try {
-    // In a real app: const response = await api.delete(`/api/wishlist/${productId}`);
     console.log('Product removed from wishlist:', productId);
     return { success: true, message: 'Product removed from wishlist' };
   } catch (error) {

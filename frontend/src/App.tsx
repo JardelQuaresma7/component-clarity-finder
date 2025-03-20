@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Product from "./pages/Product";
 import Category from "./pages/Category";
+import Collection from "./pages/Collection";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import Account from "./pages/Account";
@@ -30,6 +31,9 @@ const App = () => (
       <Route path="/outlet" element={<Category />} />
       <Route path="/categoria/:category" element={<Category />} />
       <Route path="/categoria/:category/:subcategory" element={<Category />} />
+      
+      {/* Rotas de Coleção */}
+      <Route path="/colecao/:collectionId" element={<Collection />} />
       
       {/* Rotas de Conta */}
       <Route path="/conta" element={<Account />} />

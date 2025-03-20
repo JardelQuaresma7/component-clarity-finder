@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleViewCollection = () => {
-    navigate('/novidades');
+    navigate('/colecao/primavera-verao');
   };
 
   return (
