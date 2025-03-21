@@ -13,6 +13,7 @@
         "concurrently": "^8.2.2"
     },
     "dependencies": {
-        "ecommerce-fullstack": "file:"
+        "ecommerce-fullstack": "file:",
+        "lovable-tagger": "^1.1.7"
     }
 }
