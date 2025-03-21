@@ -10,14 +10,15 @@ export default defineConfig({
     },
   },
   server: {
-    port: 3000,
-    strictPort: true,
+    port: 3001, // Use uma porta diferente da loja
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+  },
+  build: {
+    outDir: 'dist/admin',
   },
 });

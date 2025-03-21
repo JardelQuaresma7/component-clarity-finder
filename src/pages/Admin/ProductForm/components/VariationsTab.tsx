@@ -1,5 +1,5 @@
-
-import { Label } from "@/components/UI/label";
+import React from "react";
+import { Label } from "../../../../components/UI/label";
 import { ProductFormData } from "../types";
 import { UseFormRegister } from "react-hook-form";
 

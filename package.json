@@ -2,19 +2,36 @@
     "name": "ecommerce-fullstack",
     "version": "1.0.0",
     "description": "E-commerce full stack application",
+    "type": "module",
     "scripts": {
         "frontend": "cd frontend && npm run dev",
         "backend": "cd backend && npm run dev",
+        "admin": "vite --port 3001",
         "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+        "dev:all": "concurrently \"npm run frontend\" \"npm run backend\" \"npm run admin\"",
         "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-        "build:dev": "vite build --mode development"
+        "build:dev": "vite build --mode development",
+        "build:admin": "vite build"
     },
     "devDependencies": {
-        "concurrently": "^7.6.0"
+        "@vitejs/plugin-react": "^4.3.4",
+        "concurrently": "^7.6.0",
+        "path": "^0.12.7",
+        "vite": "^5.1.4"
     },
     "dependencies": {
-        "@vitejs/plugin-react": "^4.3.4",
+        "@tailwindcss/forms": "^0.5.10",
+        "@types/node": "^20.11.24",
+        "@types/react": "^18.2.61",
+        "@types/react-dom": "^18.2.19",
+        "autoprefixer": "^10.4.21",
         "ecommerce-fullstack": "file:",
-        "lovable-tagger": "^1.1.7"
+        "lovable-tagger": "^1.1.7",
+        "postcss": "^8.4.35",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-hook-form": "^7.54.2",
+        "react-router-dom": "^6.22.2",
+        "tailwindcss": "^3.4.1"
     }
 }

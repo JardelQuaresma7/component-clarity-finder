@@ -1,6 +1,6 @@
-
-import { Textarea } from "@/components/UI/textarea";
-import { Label } from "@/components/UI/label";
+import React from "react";
+import { Textarea } from "../../../../components/UI/textarea";
+import { Label } from "../../../../components/UI/label";
 import { ProductFormData } from "../types";
 import { UseFormRegister } from "react-hook-form";
 
@@ -12,20 +12,12 @@ const DescriptionTab = ({ register }: DescriptionTabProps) => {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="shortDescription">Descrição Curta</Label>
-        <Textarea
-          id="shortDescription"
-          {...register("shortDescription")}
-          rows={3}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="description">Descrição Completa</Label>
+        <Label htmlFor="description">Descrição do Produto</Label>
         <Textarea
           id="description"
           {...register("description")}
           rows={10}
+          placeholder="Descreva os detalhes do produto..."
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-
+import React from "react";
 import { Input } from "@/components/UI/input";
 import { Label } from "@/components/UI/label";
 import { ProductFormData } from "../types";
@@ -66,49 +66,44 @@ const BasicInfoTab = ({ register, errors }: BasicInfoTabProps) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="category.name">Nome da Categoria</Label>
-        <Input
-          id="category.name"
-          {...register("category.name", {
-            required: "Categoria é obrigatória",
-          })}
-        />
-        {errors.category?.name && (
-          <p className="text-red-500 text-sm">{errors.category.name.message}</p>
+        <Label htmlFor="category">Categoria</Label>
+        <select
+          id="category"
+          {...register("category", { required: "Categoria é obrigatória" })}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        >
+          <option value="">Selecione uma categoria</option>
+          <option value="camisetas">Camisetas</option>
+          <option value="calcas">Calças</option>
+          <option value="acessorios">Acessórios</option>
+        </select>
+        {errors.category && (
+          <p className="text-red-500 text-sm">{errors.category.message}</p>
         )}
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="category.slug">Slug da Categoria</Label>
-        <Input
-          id="category.slug"
-          {...register("category.slug", {
-            required: "Slug é obrigatório",
-          })}
-        />
-        {errors.category?.slug && (
-          <p className="text-red-500 text-sm">{errors.category.slug.message}</p>
-        )}
-      </div>
+      <div className="space-y-2 md:col-span-2">
+        <div className="flex gap-4">
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="isNewArrival"
+              {...register("isNewArrival")}
+              className="rounded border-gray-300"
+            />
+            <Label htmlFor="isNewArrival">Novidade</Label>
+          </div>
 
-      <div className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          id="isNewArrival"
-          {...register("isNewArrival")}
-          className="rounded border-gray-300"
-        />
-        <Label htmlFor="isNewArrival">Novidade</Label>
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          id="isFavorite"
-          {...register("isFavorite")}
-          className="rounded border-gray-300"
-        />
-        <Label htmlFor="isFavorite">Destaque</Label>
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="isFavorite"
+              {...register("isFavorite")}
+              className="rounded border-gray-300"
+            />
+            <Label htmlFor="isFavorite">Destaque</Label>
+          </div>
+        </div>
       </div>
     </div>
   );

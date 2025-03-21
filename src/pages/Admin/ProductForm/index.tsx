@@ -1,130 +1,75 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { ProductFormData } from './types';
+import BasicInfoTab from './components/BasicInfoTab';
+import VariationsTab from './components/VariationsTab';
+import ImagesTab from './components/ImagesTab';
+import DescriptionTab from './components/DescriptionTab';
+import { Label } from '@/components/UI/label';
 
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import { getProductBySlug } from "@/services/productService";
-import Layout from "@/components/Layout/Layout";
-import { Button } from "@/components/UI/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
-
-// Import components
-import BasicInfoTab from "./components/BasicInfoTab";
-import DescriptionTab from "./components/DescriptionTab";
-import ImagesTab from "./components/ImagesTab";
-import VariationsTab from "./components/VariationsTab";
-import { ProductFormData } from "./types";
-
-const ProductForm = () => {
-  const { id } = useParams();
+const ProductForm: React.FC = () => {
   const navigate = useNavigate();
-  const isEditMode = !!id;
-  
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
-  
-  const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm<ProductFormData>();
-
-  // Buscar produto se estiver em modo de edição
-  const { data: productData, isLoading } = useQuery({
-    queryKey: ["product", id],
-    queryFn: () => getProductBySlug(id || ""),
-    enabled: isEditMode,
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ProductFormData>({
+    defaultValues: {
+      name: '',
+      price: 0,
+      description: '',
+      status: 'active',
+      sizes: [],
+      images: [],
+      category: '',
+      sku: '',
+      stock: 0,
+      isNewArrival: false,
+      isFavorite: false,
+    },
   });
 
-  useEffect(() => {
-    if (productData?.data && isEditMode) {
-      const product = productData.data;
-      
-      // Preencher formulário com dados do produto
-      reset({
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        shortDescription: product.shortDescription,
-        stock: product.stock,
-        category: product.category,
-        sku: product.sku,
-        isNewArrival: product.isNewArrival,
-        isFavorite: product.isFavorite,
-        images: product.images || [],
-        sizes: product.sizes || [],
-        colors: product.colors || [],
-      });
-      
-      setImageUrls(product.images || []);
-    }
-  }, [productData, isEditMode, reset]);
-
   const onSubmit = (data: ProductFormData) => {
-    console.log("Dados do formulário:", data);
-    // Aqui implementariamos a chamada à API para criar/editar o produto
-    
-    // Após salvar, redirecionamos para a lista de produtos
-    navigate("/admin/produtos");
+    console.log('Form data:', data);
+    navigate('/produtos');
   };
 
-  if (isLoading && isEditMode) {
-    return (
-      <Layout title="Carregando Produto | Use Deluxxe">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">Carregando dados do produto...</div>
-        </div>
-      </Layout>
-    );
-  }
-
   return (
-    <Layout title={`${isEditMode ? 'Editar' : 'Novo'} Produto | Use Deluxxe`}>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">
-          {isEditMode ? "Editar Produto" : "Novo Produto"}
-        </h1>
+    <div className="bg-white shadow rounded-lg p-6">
+      <h1 className="text-2xl font-bold mb-6">Novo Produto</h1>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <BasicInfoTab register={register} errors={errors} />
+        
+        <div>
+          <Label>Descrição</Label>
+          <DescriptionTab register={register} />
+        </div>
+        
+        <div>
+          <Label>Variações</Label>
+          <VariationsTab register={register} />
+        </div>
+        
+        <div>
+          <Label>Imagens do Produto</Label>
+          <ImagesTab setValue={setValue} />
+        </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-lg shadow p-6">
-          <Tabs defaultValue="basic">
-            <TabsList className="mb-6">
-              <TabsTrigger value="basic">Informações Básicas</TabsTrigger>
-              <TabsTrigger value="description">Descrições</TabsTrigger>
-              <TabsTrigger value="images">Imagens</TabsTrigger>
-              <TabsTrigger value="variations">Variações</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="basic">
-              <BasicInfoTab register={register} errors={errors} />
-            </TabsContent>
-
-            <TabsContent value="description">
-              <DescriptionTab register={register} />
-            </TabsContent>
-
-            <TabsContent value="images">
-              <ImagesTab 
-                imageUrls={imageUrls} 
-                setImageUrls={setImageUrls} 
-                setValue={setValue} 
-              />
-            </TabsContent>
-
-            <TabsContent value="variations">
-              <VariationsTab register={register} />
-            </TabsContent>
-          </Tabs>
-
-          <div className="flex justify-between mt-8 pt-4 border-t">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => navigate("/admin/produtos")}
-            >
-              Cancelar
-            </Button>
-            <Button type="submit">
-              {isEditMode ? "Atualizar Produto" : "Criar Produto"}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </Layout>
+        <div className="flex justify-end space-x-4">
+          <button
+            type="button"
+            onClick={() => navigate('/produtos')}
+            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Salvar Produto
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
