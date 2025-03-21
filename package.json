@@ -10,7 +10,7 @@
         "build:dev": "vite build --mode development"
     },
     "devDependencies": {
-        "concurrently": "^8.2.2"
+        "concurrently": "^7.6.0"
     },
     "dependencies": {
         "ecommerce-fullstack": "file:",
