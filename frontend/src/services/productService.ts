@@ -1,3 +1,4 @@
+
 import api from './api';
 
 export const getProducts = async (params = {}) => {
@@ -16,6 +17,36 @@ export const getProductBySlug = async (slug: string) => {
     return response.data;
   } catch (error) {
     console.error(`Error fetching product ${slug}:`, error);
+    throw error;
+  }
+};
+
+export const createProduct = async (productData: any) => {
+  try {
+    const response = await api.post('/api/products', productData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating product:', error);
+    throw error;
+  }
+};
+
+export const updateProduct = async (id: string, productData: any) => {
+  try {
+    const response = await api.put(`/api/products/id/${id}`, productData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating product ${id}:`, error);
+    throw error;
+  }
+};
+
+export const deleteProduct = async (id: string) => {
+  try {
+    const response = await api.delete(`/api/products/id/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting product ${id}:`, error);
     throw error;
   }
 };
@@ -40,18 +71,19 @@ export const getNewArrivals = async () => {
   }
 };
 
-export const getCollectionProducts = async (collectionId: string) => {
+export const getCollectionProducts = async (collectionSlug: string) => {
   try {
-    const response = await api.get('/api/products/featured', { 
-      params: { collection: collectionId }
+    const response = await api.get('/api/products', { 
+      params: { collection: collectionSlug }
     });
     return response.data;
   } catch (error) {
-    console.error(`Error fetching collection ${collectionId}:`, error);
+    console.error(`Error fetching collection ${collectionSlug}:`, error);
     throw error;
   }
 };
 
+// Funções para lista de desejos
 export const getWishlistItems = async () => {
   try {
     const mockItems = [
